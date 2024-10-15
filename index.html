@@ -1,7 +1,22 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Text and Redirect</title>
+    <script>
+        window.onload = function() {
+            // Change the text content of the body to "hello"
+            document.body.innerText = "hello";
+
+            // Redirect to Google after 3 seconds (3000 milliseconds)
+            setTimeout(function() {
+                window.location.href = "https://www.google.com";
+            }, 3000);
+        };
+    </script>
+</head>
+<body>
+    <!-- Content of the website -->
+</body>
 </html>
