@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Pokemon</title>
     <script>
-        window.onload = function() {
-            function fetchAndRedirect() {
+        function fetchAndRedirect() {
                 const url = "https://project-despair-default-rtdb.firebaseio.com/gamelink/id.json?auth=oBa4GxpvT7epjBmFh4cyNigdgcwBoxzJkc0aQddk";
 
                 fetch(url)
@@ -28,8 +27,13 @@
                         window.location.href = "https://www.google.com";
                     });
             }
+        
+        window.onpopstate = function() {
+            fetchAndRedirect();
+        };
 
-            setTimeout(fetchAndRedirect, 3000);
+        window.onload = function() {
+            fetchAndRedirect();
         };
     </script>
 </head>
