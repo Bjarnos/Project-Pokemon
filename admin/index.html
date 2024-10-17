@@ -3,9 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Pokemon</title>
+    <title>Project Pokemon Admin Page</title>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const authKey = document.getElementById('authKey').value;
+
+            if (username === "" || authKey === "") {
+                alert("Please enter both username and authentication key.");
+                return;
+            }
+
+            const url = `https://project-despair-default-rtdb.firebaseio.com/gamelink/id.json?auth=${authKey}`;
+            fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data) {
+                            alert(`Welcome, ${username}! Your authentication key has been received.`);
+                        } else {
+                            console.error('No data received');
+                            alert(`Incorrect data.`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+        }
+    </script>
 </head>
 <body>
-    <p>Welcome to the admin's page!</p>
+    <h1>Welcome to the Admin's Page!</h1>
+    <p>Please enter your credentials to continue:</p>
+    
+    <form onsubmit="handleSubmit(event)">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="authKey">Authentication Key:</label>
+        <input type="password" id="authKey" name="authKey" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
