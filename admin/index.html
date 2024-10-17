@@ -7,7 +7,8 @@
     <script>
         function checkLocalStorage() {
             const thekey = localStorage.getItem('key');
-            if (thekey) {
+            const user = localStorage.getItem('user');
+            if (thekey && user) {
                 window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/dashboard";
             }
         }
@@ -35,6 +36,7 @@
                     .then(data => {
                         if (data) {
                             localStorage.setItem('key', authKey);
+                            localStorage.setItem('user', username);
                             alert(`Welcome, ${username}! Your authentication key has been received.`);
                             window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/dashboard";
                         } else {
