@@ -51,8 +51,15 @@
                 });
         }
 
+        function clearError() {
+            const errorMsg = document.getElementById('error-message');
+            errorMsg.textContent = "";
+        }
+
         window.onload = function() {
             checkLocalStorage();
+            document.getElementById('username').addEventListener('input', clearError);
+            document.getElementById('authKey').addEventListener('input', clearError);
         };
     </script>
     <style>
@@ -141,6 +148,7 @@
         <input type="submit" value="Submit">
     </form>
     
+    <!-- Error message container -->
     <div id="error-message"></div>
 
 </body>
