@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Pokemon</title>
+    <title>PP Admin Dashboard</title>
+    <script>
+        function checkLocalStorage() {
+            const thekey = localStorage.getItem('key');
+            const user = localStorage.getItem('user');
+
+            if (!thekey || !user) {
+                window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
+            }
+        }
+      
+      window.onload = function() {
+            checkLocalStorage();
+        };
+    </script>
 </head>
 <body>
-    <p>Redirecting...</p>
+    <p>Hey...</p>
 </body>
 </html>
