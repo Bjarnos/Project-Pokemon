@@ -5,60 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PP Dashboard</title>
     <script>
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        function checkURLParams() {
-            const thekey = localStorage.getItem('key');
-            const user = localStorage.getItem('user');
-            const checkuser = getQueryParam('user');
-
-            if (!thekey || !user) {
-                window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
-            } else if (!checkuser) {
-                window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts";
-            } else {
-                const authUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${checkuser}.json?auth=${thekey}`;
-                
-                fetch(authUrl)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        const main = document.querySelector('main');
-                        const box = document.createElement('div');
-                        box.style.border = '1px solid #005cbf';
-                        box.style.padding = '20px';
-                        box.style.borderRadius = '8px';
-                        box.style.backgroundColor = '#f9f9f9';
-                        box.style.color = '#005cbf';
-
-                        if (data) {
-                            box.innerHTML = `<h2>Gifted Pokémon Data for User ID: ${checkuser}</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
-                        } else {
-                            box.innerHTML = `<h2>No data found for User ID: ${checkuser}</h2>`;
-                        }
-
-                        const newline = document.createElement('p');
-                        main.appendChild(newline);
-                        main.appendChild(box);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching data:', error);
-                        const main = document.querySelector('main');
-                        main.innerHTML = `<p style="color: red;">Failed to fetch data for User ID: ${checkuser}</p>`;
-                    });
-            }
-        }
-
         window.onload = function() {
-            checkURLParams();
-        };
+    checkURLParams();
+};
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+function checkURLParams() {
+    const thekey = localStorage.getItem('key');
+    const user = localStorage.getItem('user');
+    const checkuser = getQueryParam('user');
+
+    if (!thekey || !user) {
+        window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
+    } else if (!checkuser) {
+        window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts";
+    } else {
+        const authUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${checkuser}.json?auth=${thekey}`;
+
+        fetch(authUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const main = document.querySelector('main');
+                const box = document.createElement('div');
+                box.style.border = '1px solid #005cbf';
+                box.style.padding = '20px';
+                box.style.borderRadius = '8px';
+                box.style.backgroundColor = '#f9f9f9';
+                box.style.color = '#005cbf';
+
+                if (data) {
+                    const pokemonLevel = data.pokemonLevel || 'Unknown';
+                    const pokemonName = data.pokemonName || 'Unknown';
+                    const pokemonShiny = data.pokemonShiny ? 'true' : 'false';
+                    const pokemonSkin = data.pokemonSkin || 'None';
+
+                    box.innerHTML = `
+                        <h2>Gifted Pokémon Data for User ID: ${checkuser}</h2>
+                        <p>level = ${pokemonLevel}</p>
+                        <p>name = "${pokemonName}"</p>
+                        <p>shiny = ${pokemonShiny}</p>
+                        <p>skin = "${pokemonSkin}"</p>
+                    `;
+                } else {
+                    box.innerHTML = `<h2>No data found for User ID: ${checkuser}</h2>`;
+                }
+
+                main.appendChild(box);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                const main = document.querySelector('main');
+                main.innerHTML = `<p style="color: red;">Failed to fetch data for User ID: ${checkuser}</p>`;
+            });
+    }
+}
+
     </script>
     <style>
         body {
