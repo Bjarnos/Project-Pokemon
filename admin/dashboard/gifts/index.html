@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP Dashboard</title>
+    <script>
+        function checkLocalStorage() {
+            const thekey = localStorage.getItem('key');
+            const user = localStorage.getItem('user');
+
+            if (!thekey || !user) {
+                window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
+            } else {
+                document.getElementById('username-display').textContent = user;
+                // Store the key in the hidden paragraph element
+                document.getElementById('authkey-display').textContent = thekey;
+            }
+        }
+
+        function toggleAuthKey() {
+            const authKeyContainer = document.getElementById('authkey-container');
+            const revealButton = document.getElementById('reveal-button');
+
+            if (authKeyContainer.style.display === 'none') {
+                authKeyContainer.style.display = 'inline';
+                revealButton.textContent = 'Hide Authentication Key';
+            } else {
+                authKeyContainer.style.display = 'none';
+                revealButton.textContent = 'Show Authentication Key';
+            }
+        }
+
+        window.onload = function() {
+            checkLocalStorage();
+            document.getElementById('authkey-container').style.display = 'none';
+        };
+    </script>
+    <style>
+        body {
+            background-color: #e1f0ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 150px;
+            background-color: #005cbf;
+            padding-top: 20px;
+            position: fixed;
+            height: 100%;
+            top: 60px;
+            left: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #004a9c;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            background-color: #005cbf;
+            color: white;
+            padding: 10px;
+            height: 60px;
+            position: fixed;
+            top: 0;
+            left: 0px;
+            width: 100%;
+            box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        .topbar img {
+            height: 100%;
+            width: auto;
+            border-radius: 30%;
+            margin-right: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 24px;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        main {
+            margin-left: 150px;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        h2 {
+            color: #005cbf;
+        }
+
+        #username-display {
+            color: #005cbf;
+        }
+
+        #authkey-display {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #005cbf;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #004a9c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts">Gifts</a>
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard/saves">Saves</a>
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard/settings">Settings</a>
+    </div>
+
+    <div class="topbar">
+        <img src="https://i.ibb.co/XSjgzRX/PP-logo.webp" alt="Logo" />
+        <h1>Admin Dashboard > Gifts</h1>
+    </div>
+
+    <main>
+        <p>hey</p>
+    </main>
+</body>
+</html>
