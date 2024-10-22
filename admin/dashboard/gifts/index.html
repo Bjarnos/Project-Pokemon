@@ -21,19 +21,12 @@
             checkLocalStorage();
             const userIdInput = document.getElementById('user-id-input');
 
-            // Event listener to remove non-numeric characters
-            userIdInput.addEventListener('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-            // Event listener for the submit button
             const viewGiftsButton = document.getElementById('view-gifts-button');
             viewGiftsButton.addEventListener('click', function() {
-                const userId = userIdInput.value; // Get user ID from input
-                const authKey = localStorage.getItem('key'); // Get auth key from local storage
+                const userId = userIdInput.value;
+                const authKey = localStorage.getItem('key');
 
                 if (userId && authKey) {
-                    // Redirect to the specific Firebase URL
                     const redirectUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
                     window.location.href = redirectUrl;
                 } else {
@@ -129,15 +122,14 @@
             background-color: #004a9c;
         }
 
-        /* Styling for the input */
-        input[type="number"] {
+        input[type="text"] {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 100%;
         }
 
-        input[type="number"]::placeholder {
+        input[type="text"]::placeholder {
             color: grey;
         }
     </style>
@@ -164,8 +156,8 @@
         <br>  
       
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <input type="number" id="user-id-input" placeholder="User ID" style="height: 40px; width: 100%;">
-          <button id="view-gifts-button" type="button" style="height: 40px; width: 150px; margin-left: 400;">View gifts</button>
+          <input type="text" id="user-id-input" placeholder="Username" style="height: 40px; width: 100%;">
+          <button id="view-gifts-button" type="button" style="height: 40px; width: 150px; margin-left: 70%;">View gifts</button>
         </div>
     </main>
 </body>
