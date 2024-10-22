@@ -49,14 +49,14 @@ function checkURLParams() {
                     const pokemonSkin = data.pokemonSkin || 'None';
 
                     box.innerHTML = `
-                        <h2>Gifted Pokémon Data for User ID: ${checkuser}</h2>
+                        <h2>Gifted Pokémon data for user: ${checkuser}</h2>
                         <p>level = ${pokemonLevel}</p>
                         <p>name = "${pokemonName}"</p>
                         <p>shiny = ${pokemonShiny}</p>
                         <p>skin = "${pokemonSkin}"</p>
                     `;
                 } else {
-                    box.innerHTML = `<h2>No data found for User ID: ${checkuser}</h2>`;
+                    box.innerHTML = `<h2>No data found for user: ${checkuser}</h2>`;
                 }
 
                 main.appendChild(box);
@@ -64,7 +64,7 @@ function checkURLParams() {
             .catch(error => {
                 console.error('Error fetching data:', error);
                 const main = document.querySelector('main');
-                main.innerHTML = `<p style="color: red;">Failed to fetch data for User ID: ${checkuser}</p>`;
+                main.innerHTML = `<p style="color: red;">Failed to fetch data for user: ${checkuser}</p>`;
             });
     }
 }
