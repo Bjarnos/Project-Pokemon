@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP Dashboard</title>
+    <script>
+        function checkLocalStorage() {
+            const thekey = localStorage.getItem('key');
+            const user = localStorage.getItem('user');
+            const checkuser = localStorage.getItem('checkuser');
+
+            if (!thekey || !user) {
+                // Redirect to login if key or user is missing
+                window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
+            } else if (!checkuser) {
+                // Redirect to the gifts page if checkuser is missing
+                window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/gifts";
+            } else {
+                // If everything is available, fetch the user data
+                const authUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${checkuser}.json?auth=${thekey}`;
+                
+                fetch(authUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Create a nice box to display data
+                        const main = document.querySelector('main');
+                        const box = document.createElement('div');
+                        box.style.border = '1px solid #005cbf';
+                        box.style.padding = '20px';
+                        box.style.borderRadius = '8px';
+                        box.style.backgroundColor = '#f9f9f9';
+                        box.style.color = '#005cbf';
+
+                        // Check if data is not null
+                        if (data) {
+                            box.innerHTML = `<h2>Gifted Pokémon Data for User ID: ${checkuser}</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                        } else {
+                            box.innerHTML = `<h2>No data found for User ID: ${checkuser}</h2>`;
+                        }
+                        
+                        main.appendChild(box);
+
+                        // Remove checkuser from localStorage after displaying data
+                        localStorage.removeItem('checkuser');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        const main = document.querySelector('main');
+                        main.innerHTML = `<p style="color: red;">Failed to fetch data for User ID: ${checkuser}</p>`;
+                    });
+            }
+        }
+
+        window.onload = function() {
+            checkLocalStorage();
+        };
+    </script>
+    <style>
+        body {
+            background-color: #e1f0ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 150px;
+            background-color: #005cbf;
+            padding-top: 20px;
+            position: fixed;
+            height: 100%;
+            top: 60px;
+            left: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #004a9c;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            background-color: #005cbf;
+            color: white;
+            padding: 10px;
+            height: 60px;
+            position: fixed;
+            top: 0;
+            left: 0px;
+            width: 100%;
+            box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        .topbar img {
+            height: 100%;
+            width: auto;
+            border-radius: 30%;
+            margin-right: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 24px;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        main {
+            margin-left: 150px;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        h2 {
+            color: #005cbf;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #005cbf;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+      
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #004a9c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard">Home</a>
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts">Gifts</a>
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard/saves">Saves</a>
+        <a href="https://bjarnos.github.io/Project-Pokemon/admin/dashboard/settings">Settings</a>
+    </div>
+
+    <div class="topbar">
+        <img src="https://i.ibb.co/XSjgzRX/PP-logo.webp" alt="Logo" />
+        <h1>Admin Dashboard > Gifts > View</h1>
+    </div>
+
+    <main>
+        
+    </main>
+</body>
+</html>
