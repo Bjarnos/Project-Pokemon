@@ -27,10 +27,10 @@
                 const authKey = localStorage.getItem('key');
 
                 if (userId && authKey) {
-                    const redirectUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
+                    const redirectUrl = `https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts/view?user=${userId}`;
                     window.location.href = redirectUrl;
                 } else {
-                    alert("Please enter a valid User ID.");
+                    alert("Please enter a valid Username.");
                 }
             });
         };
