@@ -31,8 +31,6 @@
                     })
                     .then(data => {
                         const main = document.querySelector('main');
-                        const newline = document.createElement('p');
-                        newline.textContent = "This is a new line";
                         const box = document.createElement('div');
                         box.style.border = '1px solid #005cbf';
                         box.style.padding = '20px';
@@ -45,7 +43,9 @@
                         } else {
                             box.innerHTML = `<h2>No data found for User ID: ${checkuser}</h2>`;
                         }
-                        
+
+                        const newline = document.createElement('p');
+                        main.appendChild(newline);
                         main.appendChild(box);
                     })
                     .catch(error => {
