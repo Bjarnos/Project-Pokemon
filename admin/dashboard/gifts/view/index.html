@@ -46,7 +46,7 @@ function checkURLParams() {
                     const pokemonLevel = data.pokemonLevel || 'Unknown';
                     const pokemonName = data.pokemonName || 'Unknown';
                     const pokemonShiny = data.pokemonShiny ? 'true' : 'false';
-                    const pokemonSkin = data.pokemonSkin || 'None';
+                    const pokemonSkin = data.pokemonSkin || '';
 
                     box.innerHTML = `
                         <h2>Gifted Pokémon data for user: ${checkuser}</h2>
