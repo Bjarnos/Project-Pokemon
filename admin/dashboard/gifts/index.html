@@ -12,28 +12,13 @@
             if (!thekey || !user) {
                 window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
             } else {
-                document.getElementById('username-display').textContent = user;
-                // Store the key in the hidden paragraph element
-                document.getElementById('authkey-display').textContent = thekey;
-            }
-        }
-
-        function toggleAuthKey() {
-            const authKeyContainer = document.getElementById('authkey-container');
-            const revealButton = document.getElementById('reveal-button');
-
-            if (authKeyContainer.style.display === 'none') {
-                authKeyContainer.style.display = 'inline';
-                revealButton.textContent = 'Hide Authentication Key';
-            } else {
-                authKeyContainer.style.display = 'none';
-                revealButton.textContent = 'Show Authentication Key';
+                const authUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon.json?auth=${thekey}`;
+                document.getElementById('view-raw-link').setAttribute('href', authUrl);
             }
         }
 
         window.onload = function() {
             checkLocalStorage();
-            document.getElementById('authkey-container').style.display = 'none';
         };
     </script>
     <style>
@@ -105,11 +90,6 @@
             color: #005cbf;
         }
 
-        #authkey-display {
-            color: #ff0000;
-            font-weight: bold;
-        }
-
         button {
             margin-top: 10px;
             padding: 10px 15px;
@@ -117,6 +97,11 @@
             color: white;
             border: none;
             cursor: pointer;
+        }
+      
+        a {
+            color: white;
+            text-decoration: none;
         }
 
         button:hover {
@@ -138,7 +123,9 @@
     </div>
 
     <main>
-        <p>hey</p>
+        <button>
+          <a id="view-raw-link" href="#" target="_blank" rel="noopener noreferrer">View raw</a>
+        </button>
     </main>
 </body>
 </html>
