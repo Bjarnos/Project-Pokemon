@@ -39,6 +39,12 @@
             removeGiftsButton.addEventListener('click', function() {
                 const userId = userIdInput.value;
                 const authKey = localStorage.getItem('key');
+                const main = document.querySelector('main');
+                
+                const existingMessageBox = document.getElementById('message-box');
+                if (existingMessageBox) {
+                    main.removeChild(existingMessageBox);
+                }
 
                 if (userId && authKey) {
                     const getUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
@@ -51,8 +57,8 @@
                             return response.json();
                         })
                         .then(data => {
-                            const main = document.querySelector('main');
                             const messageBox = document.createElement('p');
+                            messageBox.id = 'message-box';
                             messageBox.style.color = 'red';
 
                             if (data) {
@@ -211,10 +217,4 @@
   
           <div style="display: flex; justify-content: flex-start; width: 95%;">
             <button id="view-gifts-button" type="button" style="height: 40px; width: 150px;">View gifts</button>
-            <button id="edit-gifts-button" type="button" style="height: 40px; width: 150px; margin-left: 20px;">Add/edit gifts</button>
-            <button id="remove-gifts-button" type="button" style="height: 40px; width: 150px; margin-left: 20px;">Remove gifts</button>
-          </div>
-        </div>
-    </main>
-</body>
-</html>
+            <button id="edit-gifts-button" type="button" style="height: 40px; width: 150px; margin-left: 20px;">Add/edit gifts</butto
