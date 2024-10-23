@@ -22,6 +22,8 @@
             const userIdInput = document.getElementById('user-id-input');
 
             const viewGiftsButton = document.getElementById('view-gifts-button');
+            const removeGiftsButton = document.getElementById('remove-gifts-button');
+
             viewGiftsButton.addEventListener('click', function() {
                 const userId = userIdInput.value;
                 const authKey = localStorage.getItem('key');
@@ -29,6 +31,55 @@
                 if (userId && authKey) {
                     const redirectUrl = `https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts/view?user=${userId}`;
                     window.location.href = redirectUrl;
+                } else {
+                    alert("Please enter a valid Username.");
+                }
+            });
+
+            removeGiftsButton.addEventListener('click', function() {
+                const userId = userIdInput.value;
+                const authKey = localStorage.getItem('key');
+
+                if (userId && authKey) {
+                    const getUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
+
+                    fetch(getUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const main = document.querySelector('main');
+                            const messageBox = document.createElement('p');
+                            messageBox.style.color = 'red';
+
+                            if (data) {
+                                const pokemonName = data.pokemonName || 'Unknown';
+                                const deleteUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
+
+                                fetch(deleteUrl, {
+                                    method: 'DELETE'
+                                })
+                                .then(() => {
+                                    messageBox.textContent = `Successfully removed ${pokemonName}`;
+                                    main.appendChild(messageBox);
+                                })
+                                .catch(error => {
+                                    messageBox.textContent = 'Failed to remove the gift.';
+                                    console.error('Error removing data:', error);
+                                    main.appendChild(messageBox);
+                                });
+
+                            } else {
+                                messageBox.textContent = "No gift found for this user.";
+                                main.appendChild(messageBox);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching data:', error);
+                        });
                 } else {
                     alert("Please enter a valid Username.");
                 }
