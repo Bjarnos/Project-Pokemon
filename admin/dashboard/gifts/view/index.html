@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PP Dashboard</title>
     <script>
-        window.onload = function() {
+window.onload = function() {
     checkURLParams();
 };
 
@@ -42,19 +42,24 @@ function checkURLParams() {
                 box.style.backgroundColor = '#f9f9f9';
                 box.style.color = '#005cbf';
 
-                if (data) {
-                    const pokemonLevel = data.pokemonLevel || 'Unknown';
-                    const pokemonName = data.pokemonName || 'Unknown';
-                    const pokemonShiny = data.pokemonShiny ? 'true' : 'false';
-                    const pokemonSkin = data.pokemonSkin || '';
+                if (data && Array.isArray(data)) {
+                    box.innerHTML = `<h2>Gifted Pokémon data for user: ${checkuser}</h2>`;
 
-                    box.innerHTML = `
-                        <h2>Gifted Pokémon data for user: ${checkuser}</h2>
-                        <p>level = ${pokemonLevel}</p>
-                        <p>name = "${pokemonName}"</p>
-                        <p>shiny = ${pokemonShiny}</p>
-                        <p>skin = "${pokemonSkin}"</p>
-                    `;
+                    data.forEach(pokemon => {
+                        const level = pokemon.level || 'Unknown';
+                        const pname = pokemon.pname || 'Unknown';
+                        const shiny = pokemon.shiny ? 'true' : 'false';
+                        const skin = pokemon.skin || '';
+
+                        box.innerHTML += `
+                            <div style="margin-bottom: 15px; border: 1px solid #005cbf; padding: 10px; border-radius: 8px; background-color: #f0f0f0;">
+                                <p><strong>Level:</strong> ${level}</p>
+                                <p><strong>Name:</strong> "${pname}"</p>
+                                <p><strong>Shiny:</strong> ${shiny}</p>
+                                <p><strong>Skin:</strong> "${skin}"</p>
+                            </div>
+                        `;
+                    });
                 } else {
                     box.innerHTML = `<h2>No data found for user: ${checkuser}</h2>`;
                 }
@@ -68,7 +73,6 @@ function checkURLParams() {
             });
     }
 }
-
     </script>
     <style>
         body {
