@@ -62,14 +62,13 @@
                             messageBox.style.color = 'red';
 
                             if (data) {
-                                const pokemonName = data.pokemonName || 'Unknown';
                                 const deleteUrl = `https://project-starlight123-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
 
                                 fetch(deleteUrl, {
                                     method: 'DELETE'
                                 })
                                 .then(() => {
-                                    messageBox.textContent = `Successfully removed ${pokemonName}`;
+                                    messageBox.textContent = `Successfully removed their gifts!`;
                                     main.appendChild(messageBox);
                                 })
                                 .catch(error => {
