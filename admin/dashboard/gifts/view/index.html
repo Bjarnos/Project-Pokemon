@@ -24,7 +24,7 @@ function checkURLParams() {
     } else if (!checkuser) {
         window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/dashboard/gifts";
     } else {
-        const authUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${checkuser}.json?auth=${thekey}`;
+        const authUrl = `https://project-starlight123-default-rtdb.firebaseio.com/giftedPokemon/${checkuser}.json?auth=${thekey}`;
 
         fetch(authUrl)
             .then(response => {
