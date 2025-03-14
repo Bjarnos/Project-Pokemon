@@ -12,7 +12,7 @@
             if (!thekey || !user) {
                 window.location.href = "https://bjarnos.github.io/Project-Pokemon/admin/";
             } else {
-                const authUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon.json?auth=${thekey}`;
+                const authUrl = `https://project-starlight123-default-rtdb.firebaseio.com/giftedPokemon.json?auth=${thekey}`;
                 document.getElementById('view-raw-link').setAttribute('href', authUrl);
             }
         }
@@ -47,7 +47,7 @@
                 }
 
                 if (userId && authKey) {
-                    const getUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
+                    const getUrl = `https://project-starlight123-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
 
                     fetch(getUrl)
                         .then(response => {
@@ -63,7 +63,7 @@
 
                             if (data) {
                                 const pokemonName = data.pokemonName || 'Unknown';
-                                const deleteUrl = `https://project-despair-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
+                                const deleteUrl = `https://project-starlight123-default-rtdb.firebaseio.com/giftedPokemon/${userId}.json?auth=${authKey}`;
 
                                 fetch(deleteUrl, {
                                     method: 'DELETE'
